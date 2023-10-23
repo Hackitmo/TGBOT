@@ -20,12 +20,14 @@ def send_welcome(message):
 
 def echo_all(message):
 	markup = telebot.types.ReplyKeyboardMarkup(row_width=2)
-	but1 = telebot.types.KeyboardButton('a')
-	but2 = telebot.types.KeyboardButton('v')
-	but3 = telebot.types.KeyboardButton('d')
-	markup.add(*args:but1, but2, but3)
-
-bot.send_message(message.chat.id, message.text,reply_markup=markup)
+	but1 = telebot.types.KeyboardButton('HellO')
+	but2 = telebot.types.KeyboardButton('from')
+	but3 = telebot.types.KeyboardButton('API')
+	markup.add(but1, but2, but3)
+	if message.text == 'HellO':
+		bot.send_message(message.chat.id, "bye!", reply_markup=markup)
+	else:
+		bot.send_message(message.chat.id, "hehe" + "!", reply_markup=markup)
 
 
 bot.infinity_polling()
