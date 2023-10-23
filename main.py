@@ -24,9 +24,23 @@ def echo_all(message):
 	but2 = telebot.types.KeyboardButton('перевод в jpg')
 	markup.add(but1, but2, but3)
 	if message.text =='перевод в png':
-		bot.send_message(message.chat.id, "bye!", reply_markup=markup)
+		bot.send_message(message.chat.id, "добавьте файл в формате Jpg", reply_markup=markup)
+		import aspose.words as aw
+		doc = aw.Document()
+		builder = aw.DocumentBuilder(doc)
+		shape = builder.insert_image("Input.jpg")
+		shape.image_data.save("Output.png")
 	else:
-		bot.send_message(message.chat.id, "hehe" + "!", reply_markup=markup)
+		bot.send_message(message.chat.id, "файл не в нужном формате" + "!", reply_markup=markup)
+	if message.text == 'перевод в jpg':
+		bot.send_message(message.chat.id, "добавьте файл в формате Png", reply_markup=markup)
+		import aspose.words as aw
+		doc = aw.Document()
+		builder = aw.DocumentBuilder(doc)
+		shape = builder.insert_image("Input.png")
+		shape.image_data.save("Output.jpg")
+	else:
+		bot.send_message(message.chat.id, "файл не в нужном формате" + "!", reply_markup=markup)
 
 
 bot.infinity_polling()
