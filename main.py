@@ -22,7 +22,7 @@ def echo_all(message):
 	markup = telebot.types.ReplyKeyboardMarkup(row_width=2)
 	but1 = telebot.types.KeyboardButton('перевод в png')
 	but2 = telebot.types.KeyboardButton('перевод в jpg')
-	markup.add(but1, but2, but3)
+	markup.add(but1, but2)
 	if message.text =='перевод в png':
 		bot.send_message(message.chat.id, "добавьте файл в формате Jpg", reply_markup=markup)
 		import aspose.words as aw
@@ -30,9 +30,7 @@ def echo_all(message):
 		builder = aw.DocumentBuilder(doc)
 		shape = builder.insert_image("Input.jpg")
 		shape.image_data.save("Output.png")
-	else:
-		bot.send_message(message.chat.id, "файл не в нужном формате" + "!", reply_markup=markup)
-	if message.text == 'перевод в jpg':
+	elif message.text == 'перевод в jpg':
 		bot.send_message(message.chat.id, "добавьте файл в формате Png", reply_markup=markup)
 		import aspose.words as aw
 		doc = aw.Document()
