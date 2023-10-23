@@ -20,11 +20,10 @@ def send_welcome(message):
 
 def echo_all(message):
 	markup = telebot.types.ReplyKeyboardMarkup(row_width=2)
-	but1 = telebot.types.KeyboardButton('HellO')
-	but2 = telebot.types.KeyboardButton('from')
-	but3 = telebot.types.KeyboardButton('API')
+	but1 = telebot.types.KeyboardButton('перевод в png')
+	but2 = telebot.types.KeyboardButton('перевод в jpg')
 	markup.add(but1, but2, but3)
-	if message.text == 'HellO':
+	if message.text =='перевод в png':
 		bot.send_message(message.chat.id, "bye!", reply_markup=markup)
 	else:
 		bot.send_message(message.chat.id, "hehe" + "!", reply_markup=markup)
