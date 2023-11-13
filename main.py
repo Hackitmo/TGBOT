@@ -13,9 +13,6 @@ bot.set_webhook()
 
 translator = Translator()
 
-src = 'en'
-dest = 'ru'
-
 @bot.message_handler(func=lambda m: True)
 
 
