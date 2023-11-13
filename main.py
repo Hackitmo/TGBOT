@@ -10,7 +10,6 @@ bot = telebot.TeleBot(TOKEN, parse_mode=None)
 
 
 bot.set_webhook()
-
 translator = Translator()
 
 @bot.message_handler(func=lambda m: True)
