@@ -5,4 +5,4 @@
 * ###вы пишете слова на любом языке бот переводит на русский и выводит вам
 
 #сcылка на бота
-##(https://web.telegram.org/k/#@Translatornetbot)
+##https://web.telegram.org/k/#@Translatornetbot
