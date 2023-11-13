@@ -8,4 +8,4 @@
 
 # сcылка на бота
 
-## https://web.telegram.org/k/#@Translatornetbot
+* ### https://web.telegram.org/k/#@Translatornetbot
