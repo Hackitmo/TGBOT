@@ -28,7 +28,6 @@ def start(message):
 
 
 def func(message):
-  if (message.text == ""):
-
+  if (message.text == "перевод не верный"):
 
 bot.polling()
