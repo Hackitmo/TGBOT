@@ -21,5 +21,14 @@ def translate_message(message):
   dest = 'ru'
   translated_text = translator.translate(message.text, src=src, dest=dest).text
   bot.send_message(message.chat.id, translated_text)
+def start(message):
+    markup = types.InlineKeyboardMarkup()
+    button1 = types.InlineKeyboardButton(перевод не верный)
+    markup.add(button1)
+
+
+def func(message):
+  if (message.text == ""):
+
 
 bot.polling()
