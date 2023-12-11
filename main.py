@@ -28,7 +28,6 @@ def start(message):
     markup.add(button1)
 def handle_message(update, context):
     message = update.message.text.lower()
-    # Получите свою логику для определения неверных переводов
     if message == 'перевод не верный':
         response = 'введите текст в круглых скобочках'
 def translate_word(message):
