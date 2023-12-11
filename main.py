@@ -21,11 +21,13 @@ def translate_message(message):
   dest = 'ru'
   translated_text = translator.translate(message.text, src=src, dest=dest).text
   bot.send_message(message.chat.id, translated_text)
+
 def start(message):
     markup = types.InlineKeyboardMarkup()
     button1 = types.InlineKeyboardButton("перевод не верный")
     markup.add(button1)
     bot.send_message(message.chat.id,"введите текст в круглых скобочках")
+
 def translate_word(message):
     chat_id = message.chat.id
     text = message.text
@@ -34,4 +36,5 @@ def translate_word(message):
         try:
             translation = translator.translate(word, dest='ru').text
             bot.send_message(chat_id, translation)
+
 bot.polling()
