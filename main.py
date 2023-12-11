@@ -23,11 +23,16 @@ def translate_message(message):
   bot.send_message(message.chat.id, translated_text)
 def start(message):
     markup = types.InlineKeyboardMarkup()
-    button1 = types.InlineKeyboardButton(перевод не верный)
+    button1 = types.InlineKeyboardButton("перевод не верный")
     markup.add(button1)
 
 
-def func(message):
-  if (message.text == "перевод не верный"):
-
+def translate_word(message):
+    chat_id = message.chat.id
+    text = message.text
+    if text.startswith("(") and text.endswith(")"):
+        word = text[1:-1]
+        try:
+            translation = translator.translate(word, dest='ru').text
+            bot.send_message(chat_id, translation)
 bot.polling()
