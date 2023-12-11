@@ -26,8 +26,11 @@ def start(message):
     markup = types.InlineKeyboardMarkup()
     button1 = types.InlineKeyboardButton("перевод не верный")
     markup.add(button1)
-    bot.send_message(message.chat.id,"введите текст в круглых скобочках")
-
+def handle_message(update, context):
+    message = update.message.text.lower()
+    # Получите свою логику для определения неверных переводов
+    if message == 'перевод не верный':
+        response = 'введите текст в круглых скобочках'
 def translate_word(message):
     chat_id = message.chat.id
     text = message.text
