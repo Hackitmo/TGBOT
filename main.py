@@ -22,21 +22,7 @@ def translate_message(message):
   translated_text = translator.translate(message.text, src=src, dest=dest).text
   bot.send_message(message.chat.id, translated_text)
 
-def start(message):
-    markup = types.InlineKeyboardMarkup()
-    button1 = types.InlineKeyboardButton("перевод не верный")
-    markup.add(button1)
-def handle_message(update, context):
-    message = update.message.text.lower()
-    if message == 'перевод не верный':
-        response = 'введите текст в круглых скобочках'
-def translate_word(message):
-    chat_id = message.chat.id
-    text = message.text
-    if text.startswith("(") and text.endswith(")"):
-        word = text[1:-1]
-        try:
-            translation = translator.translate(word, dest='ru').text
-            bot.send_message(chat_id, translation)
+if message.text == "/help":
+  bot.send_message(message.from_user.id, "чтобы перевести слово или выражение на русский язык нужно его нужно отправит в сообщении телеграмм боту")
 
 bot.polling()
