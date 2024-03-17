@@ -21,7 +21,7 @@ def start(message):
     btn1 = types.KeyboardButton('/help')
     btn2 = types.KeyboardButton('история переводов')
     markup.add(btn1, btn2)
-    bot.send_message(message.chat.id, text="привет это бот переводчик , он переводит любые слова и словосочетания всех языков мира на русский!", reply_markup=markup)
+    bot.send_message(message.chat.id, text="привет это бот переводчик , он переводит любые слова и словосочетания всех языков   мира на русский!", reply_markup=markup)
 @bot.message_handler(func=lambda m: True)
 def translate_message(message):
     user_id = message.from_user.id
@@ -54,7 +54,7 @@ def translate_message(message):
         c.execute('''CREATE TABLE IF NOT EXISTS c
                     ( user_message TEXT, bot_message TEXT)''')
         src = detect(message.text)
-        dest = 'ru'
+        dest = 'ru' 
         translated_text = translator.translate(message.text, src=src, dest=dest).text
         bot.send_message(message.chat.id, translated_text)
         conn = sqlite3.connect(f'{user_id}.db')
