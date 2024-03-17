@@ -14,6 +14,7 @@ translator = Translator()
 @bot.message_handler(commands=['start'])
 def start(message):
     user_id = message.from_user.id
+    conn = sqlite3.connect(f'{user_id}.db')
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS c
                 ( user_message TEXT, bot_message TEXT)''')
