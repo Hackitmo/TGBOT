@@ -1,9 +1,7 @@
 from pokemon import Pokemon
 from base_pokemon import BasePokemon
-
 class PokeAPI:
     def get_pokemon(name_or_id: str) -> Pokemon:
-
         return Pokemon(name=name_or_id, id=25, height=1.6, weight=85.6)
     def get_all(get_full: bool = False):
 
