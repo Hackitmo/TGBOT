@@ -3,40 +3,69 @@ import os
 from googletrans import Translator
 from langdetect import detect
 from dotenv import load_dotenv
+from telebot import types
+import sqlite3
+import emoji
+
 
 load_dotenv()
-TOKEN = os.environ['TOKEN']
-bot = telebot.TeleBot(TOKEN, parse_mode=None)
-
-
+token = os.environ['tokenapi']
+bot = telebot.TeleBot(token, parse_mode='HTML')
 bot.set_webhook()
-
 translator = Translator()
-
-@bot.message_handler(func=lambda m: True)
-
-
-def translate_message(message):
-  src = detect(message.text)
-  dest = 'ru'
-  translated_text = translator.translate(message.text, src=src, dest=dest).text
-  bot.send_message(message.chat.id, translated_text)
-
+@bot.message_handler(commands=['start'])
 def start(message):
-    markup = types.InlineKeyboardMarkup()
-    button1 = types.InlineKeyboardButton("перевод не верный")
-    markup.add(button1)
-def handle_message(update, context):
-    message = update.message.text.lower()
-    if message == 'перевод не верный':
-        response = 'введите текст в круглых скобочках'
-def translate_word(message):
-    chat_id = message.chat.id
-    text = message.text
-    if text.startswith("(") and text.endswith(")"):
-        word = text[1:-1]
-        try:
-            translation = translator.translate(word, dest='ru').text
-            bot.send_message(chat_id, translation)
+    user_id = message.from_user.id
+    conn = sqlite3.connect(f'{user_id}.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS c
+                ( user_message TEXT, bot_message TEXT)''')
+    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+    btn1 = types.KeyboardButton('/help')
+    btn2 = types.KeyboardButton('история переводов')
+    markup.add(btn1, btn2)
+    bot.send_message(message.chat.id, text="Привет это бот переводчик , он переводит любые слова и словосочетания всех языков   мира на русский!", reply_markup=markup)
+@bot.message_handler(func=lambda m: True)
+def translate_message(message):
+    user_id = message.from_user.id
+    conn = sqlite3.connect(f'{user_id}.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS c
+                ( user_message TEXT, bot_message TEXT)''')
+    if message.text == "/start":
+        bot.send_message(message.chat.id, text="Привет это бот переводчик , он переводит любые слова и словосочетания всех языков мира на русский!")
+    elif ":" in emoji.demojize(message.text):
+        bot.send_message(message.chat.id, text="введите без эмодзи")
+    elif message.text == "/help":
+        bot.send_message(message.chat.id, text="Отправьте боту сообщение на любом языке мира и он переведёт их на русский!")
+    elif message.text == "история переводов":
+        conn = sqlite3.connect(f'{user_id}.db')
+        c = conn.cursor()
+        c.execute("SELECT * FROM c")
+        user_id = c.fetchall()
+        conn.close()
+        a=[]
+        for row in user_id:
+            a.append(row)
+        c='История переводов:\n\n'
+        for i in a:
+            c+=str(i[0])+' '+'-'+' '+str(i[1])
+            c+=('\n')
+        bot.send_message(message.chat.id,c)
+    else:
+        user_id = message.from_user.id
+        conn = sqlite3.connect(f'{user_id}.db')
+        c = conn.cursor()
+        c.execute('''CREATE TABLE IF NOT EXISTS c
+                    ( user_message TEXT, bot_message TEXT)''')
+        src = detect(message.text)
+        dest = 'ru'
+        translated_text = translator.translate(message.text, src=src, dest=dest).text
+        bot.send_message(message.chat.id, translated_text)
+        conn = sqlite3.connect(f'{user_id}.db')
+        c = conn.cursor()
+        c.execute("INSERT INTO c (user_message, bot_message) VALUES (?, ?)", (message.text, translated_text))
+        conn.commit()
+        conn.close()
 
-bot.polling()
+bot.polling(none_stop=True)
