@@ -3,7 +3,6 @@ import os
 from googletrans import Translator
 from langdetect import detect
 from dotenv import load_dotenv
-from telebot import types
 import sqlite3
 import emoji
 
